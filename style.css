@@ -1,0 +1,118 @@
+@import 'fonts.css';
+
+*{
+    box-sizing: border-box;
+}
+
+.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.repositories-container{
+    max-height: 763px;
+    max-width: 661px;
+    min-width: 661px;
+    padding: 62px 84px 72px 74px;
+    background-color: #C4C4C4;
+}
+
+.repositories-search{
+    position: absolute;
+    min-width: 500px;
+    max-width: 500px;
+}
+
+.repositories-input{
+    padding-left: 13px;
+    max-width: 500px;
+    line-height: 56px;
+    height: 61px;
+    font-size: 56px;
+    font-family: Roboto, sans-serif;
+    font-weight: 400px;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+button{
+    background-color: unset;
+    border: none;
+    cursor: pointer;
+}
+
+.repositories-options{
+    display: none;
+    background-color: #E3E3E3;
+}
+
+.repositories-options--active{
+    display: block;
+}
+
+.repositories-options--disable{
+    display: none;
+}
+
+.repositories-option{
+    font-family: Roboto, sans-serif;
+    font-weight: 400px;
+    font-size: 30px;
+    line-height: 35px;
+    border: 2px solid black;
+    padding-left: 13px;
+}
+
+.repositories-saved{
+    margin-top: 265px;
+}
+.saved-item{
+    max-width: 500px;
+    max-height: 108px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #E27BEB;
+    border: 2px solid black;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    padding: 8px 17px;
+    font-family: Roboto, sans-serif;
+    font-weight: 400px;
+    font-size: 24px;
+}
+.saved-close{
+
+}
+
+.saved-close {
+    width: 42px;
+    height: 38px;
+    position: relative;
+    top: 31px;
+    right: 34px;
+}
+
+.saved-close:before,
+.saved-close:after {
+    content: "";
+    position: absolute;
+    top: 0; 
+    width: 3px;
+    height: 38px;
+    background-color: red;
+}
+
+.saved-close:before {
+    transform: rotate(45deg);
+}
+
+.saved-close:after {
+    transform: rotate(-45deg);
+}

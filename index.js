@@ -32,15 +32,20 @@ function debounceInput(callee, timeoutMs) {
 
 
 async function getOptions(searchKey){
-    const response = await fetch(`https://api.github.com/search/repositories?q=${searchKey}&per_page=5`, {
-        method: 'get',
-        headers: {
-            Authorization: '',
-            'X-GitHub-Api-Version': '2022-11-28'
-
-        }
-    });
-    return response.json();
+    try{
+        const response = await fetch(`https://api.github.com/search/repositories?q=${searchKey}&per_page=5`, {
+            method: 'get',
+            headers: {
+                Authorization: '',
+                'X-GitHub-Api-Version': '2022-11-28'
+    
+            }
+        });
+        return response.json();
+    }catch(error){
+        console.assert("Проблемы с сервером ! Повторите попытку")
+        return error;
+    }
 }
 
 function clearOptionsList(){
@@ -97,12 +102,12 @@ function addRepository(repoData){
     repoElem.appendChild(repoButton);
     const repoName = document.createElement('div');
     repoName.classList.add('info-name');
-    repoName.textContent = repoData.name;
+    repoName.textContent = `Name: ${repoData.name}`;
     const repoOwner = document.createElement('div');
     repoOwner.classList.add('info-owner');
-    repoOwner.textContent = repoData.owner.login;
+    repoOwner.textContent = `Owner: ${repoData.owner.login}`;
     const repoStars = document.createElement('div');
-    repoStars.textContent = repoData.score;
+    repoStars.textContent = `Stars: ${repoData.watchers_count}`;
     repoStars.classList.add('info-stars');
     repoInfo.appendChild(repoName);
     repoInfo.appendChild(repoOwner);
@@ -117,16 +122,12 @@ function disableOptionsList(){
 }
 
 async function handleInput(event){
-    if (event.target.value){
+    const value = event.target.value;
+    if (value && value.trim().length > 0){
         const optionsElement = document.querySelector('.repositories-options');
         optionsElement.classList.remove('repositories-options--disable');
-
-        try{
-            let repoList = await debounceGetOptions(event.target.value);
-            createOptionElement(repoList);
-        }catch(error){
-            console.assert(error)
-        };
+        let repoList = await debounceGetOptions(event.target.value);
+        createOptionElement(repoList);
     };
 };
 
@@ -135,8 +136,9 @@ const debouncehandleInput = debounceInput(handleInput, 400);
 
 const input = document.querySelector('.repositories-input');
 
-input.addEventListener('input', async function(event){
+input.addEventListener('input', async function(event){  
     debouncehandleInput(event);
+
     if (!event.target.value){
         disableOptionsList();
     }
